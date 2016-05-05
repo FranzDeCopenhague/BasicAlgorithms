@@ -5,7 +5,33 @@
  *     RandomListNode *next, *random;
  *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
  * };
+ * 
+ * 
+ * Problem :
+ *  A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
+ *
+ *  Return a deep copy of the list.
+ * 
+ * 
  */
+ 
+ /// This solution has a time complexity O(n) and space O(1) without using a hash table
+ ///
+ /// STEPS:
+ /// Clone the list nodes and insert the cloned node after the original
+ ///      newNode = clone(original)
+ ///      newNode->next = original->next
+ ///      original->next = newNode
+ ///
+ /// Compute the cloned->random based on the relative position between original->next ==> newNode->next ==> original
+ ///      newNode = original->next
+ ///      newNode->random = original->random->next
+ ///
+ /// Split originals and cloned nodes undoing first step
+ ///      newNode = original->next
+ ///      original->next = newNode->next
+ ///      newNode->next = newNode->next->next
+
 class Solution {
 public:
     void cloneInsert(RandomListNode* node)
