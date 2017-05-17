@@ -61,4 +61,76 @@ public:
         return result;
     }
 
+    vector<int> postorderTraversal(TreeNode* root) {
+
+    vector<int> result;
+    stack<TreeNode*> s;
+
+    auto current = root;
+
+    while ((!s.empty()) || current) {
+        if (current) {
+            // Push root's right child and then root to stack.
+            if (current->right) {
+                s.push(current->right);
+            }
+            s.push(current);
+            // Move to leftmost node
+            current = current->left;
+        } else {
+            auto parent = s.top();
+            s.pop();
+            // make sure right child is processed before parent
+            if ((parent->right) && (!s.empty()) && (parent->right == s.top())) {
+                s.pop();
+                // return parent to the stack
+                s.push(parent);
+                // process right instead
+                current = parent->right;
+            } else {
+                result.push_back(parent->val);
+                current = nullptr;
+            }
+        }
+    }
+
+    return result;
+}
+
+vector<int> postorderTraversal(TreeNode* root) {
+
+     vector<int> result;
+     stack<TreeNode*> s;
+
+     auto current = root;
+
+     while ((!s.empty()) || current) {
+         if (current) {
+             // Push root's right child and then root to stack.
+             if (current->right) {
+                 s.push(current->right);
+             }
+             s.push(current);
+             // Move to leftmost node
+             current = current->left;
+         } else {
+             auto parent = s.top();
+             s.pop();
+             // make sure right child is processed before parent
+             if ((parent->right) && (!s.empty()) && (parent->right == s.top())) {
+                 s.pop();
+                 // return parent to the stack
+                 s.push(parent);
+                 // process right instead
+                 current = parent->right;
+             } else {
+                 result.push_back(parent->val);
+                 current = nullptr;
+             }
+         }
+     }
+
+     return result;
+ }
+
 };
