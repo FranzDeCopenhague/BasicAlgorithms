@@ -18,15 +18,16 @@ public:
         stack<TreeNode*> s;
 
         while ((!s.empty()) || (current)) {
-            // Push current while left is not empty
+            // Push current while current
             if (current) {
                 s.push(current);
+                // set current to left
                 current = current->left;
             } else {
                 // add top->value to results
                 auto top = s.top();
                 result.push_back(top->val);
-                // set current to top->right and pop  
+                // set current to top->right and pop
                 current = top->right;
                 s.pop();
             }
@@ -34,4 +35,30 @@ public:
 
         return result;
     }
+
+    vector<int> preorderTraversal(TreeNode* root) {
+
+        vector<int> result;
+
+        auto current = root;
+        stack<TreeNode*> s;
+
+        while ((!s.empty()) || (current)) {
+            // Push while current
+            if (current) {
+              // Add current->value to results and
+                result.push_back(current->val);
+                s.push(current);
+                // set current to left
+                current = current->left;
+            } else {
+                auto top = s.top();
+                s.pop();
+                current = top->right;
+            }
+        }
+
+        return result;
+    }
+
 };
